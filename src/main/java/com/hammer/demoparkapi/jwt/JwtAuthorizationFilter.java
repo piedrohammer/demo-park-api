@@ -54,6 +54,5 @@ import java.io.IOException;
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-
 }
 

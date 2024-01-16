@@ -49,29 +49,4 @@ public class ErrorMessage {
             this.erros.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
     }
-
-    /*
-     quando a gente for trabalhar com a parte de validação, a gente tem que enviar lá para o cliente
-     um objeto dentro do JSON que contenha o nome do campo que gerou o erro de validação.
-     E o valor desse campo vai ser a mensagem de validação.
-     Então esse MAP vai conter isso, o nome do campo como chave e o valor vai ser a mensagem do erro.
-     Então, para ter acesso ao nome do campo e ao valor da mensagem, a gente vai utilizar um for.
-     Vamos usar aqui o campo field de error.
-     e a partir do result nós temos acesso ao método getFieldErrors
-     eu acesso a variável errors.
-     Uso o método put onde eu vou passar uma chave e um valor,
-     a chave eu pego a partir da variável field error e do método getField
-     Já a mensagem eu pego a partir de fieldError.
-     Usando o método getDefaultMessage
-     *
-     */
 }
-
-/*
-@JsonInclude(JsonInclude.Include.NON_NULL) -> Include.NON_NULL quando o objeto Error message for gerado
-e for transformado em um JSON para ser incluido na resposta da requisição a Jackson, que é a biblioteca que faz essa conversão,
-ela vai ver que o campo Errors está anotado e como ele é nulo, ela não vai colocar lá dentro do objeto JSON.
-Por quê?
-Porque está dizendo que é para incluir apenas se o campo não for nulo.
-Como o campo é nulo, ela não inclui.
-*/

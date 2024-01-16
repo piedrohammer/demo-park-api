@@ -15,7 +15,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,16 +38,18 @@ public class Vaga implements Serializable {
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
+
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
+
     @CreatedBy
     @Column(name = "criado_por")
     private String criadoPor;
+
     @LastModifiedBy
     @Column(name = "modificado_por")
     private String modificadoPor;
-
 
     public enum StatusVaga {
         LIVRE, OCUPADA

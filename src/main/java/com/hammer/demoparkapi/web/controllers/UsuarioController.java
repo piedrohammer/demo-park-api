@@ -31,9 +31,6 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-
-
-    // ResponseEntity Encapsula o objeto e transforma em json
     @Operation(summary = "Criar um novo usuario", description = "Recurso para cria um novo usuário.",
                 responses = {
                     @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso!",
@@ -46,6 +43,7 @@ public class UsuarioController {
     )
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> create (@Valid @RequestBody UsuarioCreateDTO createDTO){
+
         Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(createDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDTO(user));
     }
@@ -64,6 +62,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') OR ( hasRole('CLIENTE') AND #id == authentication.principal.id)")
     public ResponseEntity<UsuarioResponseDTO> getById (@PathVariable Long id){
+
         Usuario user = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(UsuarioMapper.toDTO(user));
     }
@@ -85,6 +84,7 @@ public class UsuarioController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDTO dto) {
+
         Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
         return ResponseEntity.noContent().build();
     }
@@ -102,9 +102,8 @@ public class UsuarioController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UsuarioResponseDTO>> getAll(){
+
         List<Usuario> users = usuarioService.buscarTodos();
         return ResponseEntity.ok(UsuarioMapper.toListDTO(users));
     }
-
-
 }

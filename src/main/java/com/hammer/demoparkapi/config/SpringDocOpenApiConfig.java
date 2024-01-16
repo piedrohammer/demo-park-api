@@ -9,7 +9,6 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 public class SpringDocOpenApiConfig {
 
@@ -25,7 +24,6 @@ public class SpringDocOpenApiConfig {
                                 .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0"))
                                 .contact(new Contact().name("Piedro Hammer").email("piiedrohammer@gmail.com"))
                 );
-
     }
 
     private SecurityScheme securityScheme() {
@@ -37,6 +35,4 @@ public class SpringDocOpenApiConfig {
                 .bearerFormat("JWT")
                 .name("security");
     }
-
-
 }

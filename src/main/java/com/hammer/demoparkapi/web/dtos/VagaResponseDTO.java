@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VagaResponseDTO {
+
     private Long id;
     private String codigo;
     private String status;

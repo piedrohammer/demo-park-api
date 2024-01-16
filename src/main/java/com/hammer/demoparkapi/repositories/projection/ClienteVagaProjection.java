@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public interface ClienteVagaProjection {
+
     String getPlaca();
     String getMarca();
     String getModelo();

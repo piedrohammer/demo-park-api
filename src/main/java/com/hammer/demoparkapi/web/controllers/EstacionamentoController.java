@@ -48,6 +48,7 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 @RestController
 @RequestMapping("api/v1/estacionamentos")
 public class EstacionamentoController {
+
     private final EstacionamentoService estacionamentoService;
     private final ClienteVagaService clienteVagaService;
     private final ClienteService clienteService;
@@ -76,6 +77,7 @@ public class EstacionamentoController {
     @PostMapping("/check-in")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EstacionamentoResponseDTO> checkin(@RequestBody @Valid EstacionamentoCreateDTO dto) {
+
         ClienteVaga clienteVaga = ClienteVagaMapper.toClienteVaga(dto);
         estacionamentoService.checkIn(clienteVaga);
         EstacionamentoResponseDTO responseDto = ClienteVagaMapper.toDto(clienteVaga);
@@ -103,6 +105,7 @@ public class EstacionamentoController {
     @GetMapping("/check-in/{recibo}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity<EstacionamentoResponseDTO> getByRecibo(@PathVariable String recibo) {
+
         ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
         EstacionamentoResponseDTO dto = ClienteVagaMapper.toDto(clienteVaga);
         return ResponseEntity.ok(dto);
@@ -129,6 +132,7 @@ public class EstacionamentoController {
     @PutMapping("/check-out/{recibo}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EstacionamentoResponseDTO> checkout(@PathVariable String recibo) {
+
         ClienteVaga clienteVaga = estacionamentoService.checkOut(recibo);
         EstacionamentoResponseDTO dto = ClienteVagaMapper.toDto(clienteVaga);
         return ResponseEntity.ok(dto);
@@ -225,6 +229,7 @@ public class EstacionamentoController {
     @GetMapping("/relatorio")
     @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<Void> getRelatorio(HttpServletResponse response, @AuthenticationPrincipal JwtUserDetails user) throws IOException {
+
         String cpf = clienteService.buscarPorUsuarioId(user.getId()).getCpf();
         jasperService.addParams("CPF", cpf);
 
@@ -236,5 +241,4 @@ public class EstacionamentoController {
 
         return ResponseEntity.ok().build();
     }
-
 }

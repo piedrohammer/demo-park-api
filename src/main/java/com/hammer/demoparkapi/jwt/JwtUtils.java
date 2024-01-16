@@ -22,7 +22,6 @@ public class JwtUtils {
     public static final long EXPIRE_MINUTES = 30;
 
     private JwtUtils(){
-
     }
 
     private static javax.crypto.SecretKey generateKey() {
@@ -79,13 +78,10 @@ public class JwtUtils {
         return false;
     }
 
-
     private static String refactorToken(String token) {
         if (token.contains(JWT_BEARER)){
             return token.substring(JWT_BEARER.length());
         }
         return token;
     }
-
-
 }

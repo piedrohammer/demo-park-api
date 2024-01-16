@@ -66,12 +66,3 @@ public class UsuarioService {
         return usuarioRepository.findRoleByUsername(username);
     }
 }
-
-
-/*
-@Transactional -> Spring vai cuidar da transação, abrir, fechar e gerenciar. Usado para metodos de consulta.
-@RequiredArgsConstructor -> Serve para o Lombok crie um metodo construtor com a variavel usuario repository.
-(readOnly = true) -> indica para o spring que esse metodo é exclusivo para uma consulta no banco de dados.
-
-String.format -> funciona de uma forma muito parecida com o print F, então vai aparecer aqui username (digitado) já cadastrado
- */

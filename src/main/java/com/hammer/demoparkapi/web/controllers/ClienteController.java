@@ -38,7 +38,6 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 public class ClienteController {
 
     private final ClienteService clienteService;
-
     private final UsuarioService usuarioService;
 
     @Operation(summary = "Criar um novo cliente",
@@ -79,6 +78,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClienteResponseDTO> getById(@PathVariable Long id) {
+
         Cliente cliente = clienteService.buscarPorId(id);
         return ResponseEntity.ok(ClienteMapper.toDTO(cliente));
     }
@@ -133,39 +133,8 @@ public class ClienteController {
     @GetMapping("/detalhes")
     @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<ClienteResponseDTO> getDetalhes(@AuthenticationPrincipal JwtUserDetails userDetails) {
+
         Cliente cliente = clienteService.buscarPorUsuarioId(userDetails.getId());
         return ResponseEntity.ok(ClienteMapper.toDTO(cliente));
     }
 }
-/*
-Como tem um relacionamento do tipo um para um entre cliente e usuário, a gente vai precisar
-vincular na hora de salvar o cliente, o usuário, para que lá no banco de dados seja feito o relacionamento.
-Para fazer isso, precisa do ID do usuário para localizar a partir desse ID, o usuário e
-então inserir o usuário a partir do método usuário de cliente.
-
-Só que, como nós vamos saber qual usuário está logado para que a gente recupere o ID dele?
-Nós vamos saber a partir do contexto do Spring Security.
-Toda vez que faz um login lá no contexto do Spring Security, tem um objeto que é o objeto JWTUserDetails.
-
-Lá naquele objeto  colocamos o método getId vamos usar esse método para recuperar o ID para pegar do contexto
-essa informação, vai utilizar uma anotação do Spring Security.
-Que a notação @AuthenticationPrincipal
-
-Então essa notação, a partir do contexto do Spring Security, recupera as informações que estão lá
-e vai injetar na variável, que vai ser do tipo JwtUserDetails userDetails
-
-Feito isso, podemos acessar agora a partir da variável cliente o método setUsuário.
-Nesse método a gente vai ter que adicionar um usuário.
-Esse usuário vai ser recuperado a partir do ID que temos em userDetails.
-
-Só que o ID não é suficiente, precisa do objeto usuário, então vai incluir aqui na
-classe uma injeção de dependências para o usuárioService
-
-
-agora a partir de o usuárioService vamos acessar o metodo buscaPorId e a partir de userDetails acessamos o método getId.
-Feito isso, vamos acessar clienteService e o metodo salvar
-Aqui no método Salvar a gente passa a variável cliente.
-
-como retorno. Vamos usar o ResponseEntity.status(201).body(ClienteMapper.toDTO(cliente));
-
-* */

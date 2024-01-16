@@ -18,13 +18,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
-
 @EnableMethodSecurity
 @EnableWebMvc
 @Configuration
 public class SpringSecurityConfig {
-
-
 
     private static final String[] DOCUMENTATION_OPENAPI = {
             "/docs/index.html",

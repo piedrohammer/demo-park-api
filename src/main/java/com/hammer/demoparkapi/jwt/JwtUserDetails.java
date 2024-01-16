@@ -15,7 +15,6 @@ public class JwtUserDetails extends User {
         super(usuario.getUsername(), usuario.getPassword(), AuthorityUtils.createAuthorityList(usuario.getRole().name()));
         this.usuario = usuario;
     }
-
     public long getId(){
         return this.usuario.getId();
     }

@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EstacionamentoResponseDTO {
+
     private String placa;
     private String marca;
     private String modelo;

@@ -63,11 +63,3 @@ public class Cliente implements Serializable {
         return Objects.hash(id);
     }
 }
-
-/*
-a parte referente ao relacionamento com o usuário vai ser um relacionamento do tipo um para um. @OneToOne
-para fazer o mapeamento entre as duas tabelas utilizar a notação @JoinColumn
-adicionar em name o nome da chave que vai ser a chave estrangeira na tabela. @JoinColumn(name = "id_usuario", nullable = false)
-nullable como false, porque cliente obrigatoriamente vai ter que ter o a ID referente ao usuário.
-que ele está vinculado.
-* */

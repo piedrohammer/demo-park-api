@@ -23,7 +23,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-
 @Tag(name = "Vagas", description = "Contém todas as opereções relativas ao recurso de uma vaga")
 @RequiredArgsConstructor
 @RestController
@@ -52,6 +51,7 @@ public class VagaController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> create(@RequestBody @Valid VagaCreateDTO dto) {
+
         Vaga vaga = VagaMapper.toVaga(dto);
         vagaService.salvar(vaga);
         URI location = ServletUriComponentsBuilder
@@ -79,58 +79,8 @@ public class VagaController {
     @GetMapping("/{codigo}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<VagaResponseDTO> getByCodigo(@PathVariable String codigo) {
+
         Vaga vaga = vagaService.buscarPorCodigo(codigo);
         return ResponseEntity.ok(VagaMapper.toDto(vaga));
     }
 }
-
-/*
-Agora nós vamos retornar o cabeçalho, por isso o corpo vai ser vazio
-o nosso método Create  tem que pegar o DTO e transformar em um objeto do tipo vaga, então declaro uma variável do tipo vaga.
-e a partir de VagaMapper eu acesso o método toVaga, passando o dto como parâmetro
-Depois o próximo passo é salvar a vaga.
-Então vamos acessar vagaService e passando o objeto vaga como parâmetro. -> vagaService.salvar(vaga)
-se não for lançada aquela exceção, é porque a vaga foi salva no banco de dados com sucesso.
-Agora, então gerar a estrutura que vai criar a URI, que vai ser incluída no cabeçalho Location.
-Para isso.
-Vamos utilizar uma variável do tipo o URI, que é do pacote Java Net.
-Eu vou nomear como location.
-É a partir de uma classe do Spring chamada ServletUriComponentsBuilder.
-Nós vamos gerar essa URI que vai fazer parte do cabeçalho.
-Então nessa classe tem vários métodos e nós vamos utilizar o .fromCurrentRequestUri()
-Esse método aqui faz o quê?
-Ele recupera a URI que foi usada para acessar o recurso que você está trabalhando.
-Então, o recurso Create utiliza a URL api/v1/vagas.
-Então esse método vai recuperar essa URI e nós vamos concatenar a essa URL o código de acesso a essa vaga.
-Para isso a gente acessa o método path e um novo caminho vai ser incluído nessa URL que vai ser o caminho /{código}.
-Essa parte chaves código é um parâmetro e agora vai dizer qual o valor deve ser incluído nesseparâmetro.
-Para isso.
-Usamos o método buildAndExpand
-e a partir de vaga acessamos o método getCodigo
-Assim o código da vaga vai ser incluído na URI.
-Para finalizar, temos que transformar essa operação em um objeto do tipo URI.
-Para isso usamos toUri
-Ok E agora na instrução de retorno do método.
-Vamos usar o ResponseEntity.created(location).build();
-Veja que o método Created espera por um objeto do tipo URI.
-Esse objeto vai ser na verdade o nosso location.
-Dessa forma, o Spring adiciona esse location como cabeçalho da resposta dessa requisição e esse cabeçalho
-vai conter a URL de acesso à vaga que foi criada.
-Para acessar essa vaga, nós vamos usar um novo método.
-Que vai ser do tipo get.
-Que vai ter o caminho barra código.
-Ele também terá permissão de acesso exclusiva para o administrador.
-Eu vou nomear o método como getbyCodigo.
-Dessa vez o nosso retorno não vai ser Void e sim o VagaResponseDTO
-E nós vamos ter a anotação @PathVariable
-Como o argumento do método String codigo
-Agora no corpo do método, vamos adicionar uma variável do tipo vaga.
-Que vai receber um objeto vaga.
-Vaga vaga = vagaService.buscarPorCodigo(codigo);
-Vamos passar o código como parâmetro.
-E agora, em ResponseEntity
-Vamos utilizar o método ok
-E vamos transformar a vaga em um ResponseDTO
-ResponseEntity.ok(VagaMapper.toDto(vaga));
-Passando a vaga como parâmetro.
-* */

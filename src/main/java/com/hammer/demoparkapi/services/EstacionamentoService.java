@@ -22,6 +22,7 @@ public class EstacionamentoService {
 
     @Transactional
     public ClienteVaga checkIn(ClienteVaga clienteVaga) {
+
         Cliente cliente = clienteService.buscarPorCpf(clienteVaga.getCliente().getCpf());
         clienteVaga.setCliente(cliente);
 
@@ -38,6 +39,7 @@ public class EstacionamentoService {
 
     @Transactional
     public ClienteVaga checkOut(String recibo) {
+
         ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
 
         LocalDateTime dataSaida = LocalDateTime.now();

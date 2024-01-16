@@ -63,6 +63,5 @@ public class AutenticacaoController {
                 .badRequest()
                 .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais Inválidas"));
     }
-
 }
 
